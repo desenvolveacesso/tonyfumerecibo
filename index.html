@@ -498,7 +498,7 @@
                 <label for="config-background">Upload do Plano de Fundo:</label>
                 <input type="file" id="config-background" accept="image/*">
                 
-                <button type="button" id="btn-salvar-config">Salvar Configurações</button>
+                <button type="submit" id="btn-salvar-config">Salvar Configurações</button>
             </form>
         </div>
     </div>
@@ -657,8 +657,11 @@
             fecharModal(modalConfig);
         }
 
-        // Event listener para o botão de salvar, substituindo o submit do form
-        document.getElementById('btn-salvar-config').addEventListener('click', () => {
+        // Event listener para o formulário de configurações
+        formConfig.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // A chamada para salvar e fechar o modal só acontece no upload das imagens ou
+            // ao clicar no botão, se o usuário não fizer upload de nada.
             salvarConfiguracoes();
         });
 
@@ -678,8 +681,7 @@
                         const output = await rembgInstance.remove(img);
                         empresaConfig.logo = output.toDataURL('image/png');
                         loadingMessage.style.display = 'none';
-                        carregarConfiguracoes(); // Atualiza a visualização da logo
-                        // O modal será fechado ao clicar no botão "Salvar Configurações"
+                        salvarConfiguracoes(); // Salva e fecha o modal aqui
                     };
                     img.src = event.target.result;
                 };
@@ -693,7 +695,7 @@
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     empresaConfig.background = event.target.result;
-                    carregarConfiguracoes(); // A logo é atualizada aqui, mas o modal só fecha no botão
+                    salvarConfiguracoes(); // Salva e fecha o modal aqui
                 };
                 reader.readAsDataURL(file);
             }
