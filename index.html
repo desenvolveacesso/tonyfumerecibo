@@ -599,7 +599,7 @@
             endereco: 'Avenida Juca Sampaio, 1552, Jacintinho',
             whatsapp: '(82)99806-9585',
             logo: null,
-            background: null
+            background: null // NOVO CAMPO
         };
 
         let recibos = JSON.parse(localStorage.getItem('recibos')) || [];
@@ -657,10 +657,6 @@
             fecharModal(modalConfig);
         }
 
-        // A função de upload da logo e o plano de fundo agora chamam a função de salvar,
-        // garantindo que os dados estejam prontos antes de fechar o modal.
-        // Adicionamos um event listener para o formulário de configurações, caso o usuário
-        // queira apenas salvar os campos de texto.
         formConfig.addEventListener('submit', (e) => {
             e.preventDefault();
             salvarConfiguracoes();
@@ -690,6 +686,7 @@
             }
         });
 
+        // NOVO EVENT LISTENER PARA O PLANO DE FUNDO
         document.getElementById('config-background').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
