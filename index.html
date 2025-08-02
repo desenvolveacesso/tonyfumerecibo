@@ -234,95 +234,153 @@
         form button:hover {
             background-color: #d10000;
         }
-
+        
+        /* Estilo do recibo */
         #recibo-content {
-            padding: 20px;
+            padding: 15px;
             border: 1px solid var(--cor-destaque);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             position: relative;
-            background-color: #fce4e4;
+            background-color: var(--cor-secundaria);
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(231, 0, 0, 0.3);
-            background-image: linear-gradient(135deg, rgba(231, 0, 0, 0.1) 25%, transparent 25%),
-                              linear-gradient(225deg, rgba(231, 0, 0, 0.1) 25%, transparent 25%),
-                              linear-gradient(45deg, rgba(231, 0, 0, 0.1) 25%, transparent 25%),
-                              linear-gradient(315deg, rgba(231, 0, 0, 0.1) 25%, #fce4e4 25%);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 0, 10px -10px, 0px 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        
+        .recibo-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
         }
 
-        .recibo-header, .recibo-footer {
-            text-align: center;
-            margin-bottom: 20px;
-        }
         .recibo-header img {
-            max-width: 150px;
+            max-width: 120px;
+            margin-bottom: 5px;
         }
 
         .recibo-header h3 {
-            color: var(--cor-destaque);
+            color: var(--cor-principal);
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .recibo-data {
-            border: 2px solid var(--cor-destaque);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background-color: #fff;
+            font-size: 1.2em;
         }
         
-        .recibo-item {
-            border: 2px solid var(--cor-destaque);
+        /* Novo estilo para o corpo do recibo com caixas */
+        .recibo-body {
             padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background-color: #fff;
-        }
-
-        .recibo-assinatura {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 15px;
+            border-bottom: 1px dashed #ccc;
+            margin-bottom: 15px;
         }
         
-        .recibo-assinatura span {
-            border-top: 2px solid var(--cor-destaque);
-            display: inline-block;
-            padding-top: 5px;
-            font-size: 1.1em;
+        .recibo-info-grid {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 1fr;
+        }
+        
+        .recibo-info-box {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        .recibo-info-box h4 {
+            font-size: 0.8em;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        
+        .recibo-info-box p {
+            font-size: 0.9em;
+            font-weight: bold;
             color: var(--cor-principal);
         }
         
-        .recibo-footer {
+        .recibo-assinatura {
+            text-align: center;
             margin-top: 20px;
-            border-top: 1px dashed #aaa;
             padding-top: 10px;
         }
         
-        .recibo-footer p {
+        .recibo-assinatura .linha-assinatura {
+            border-top: 1px solid var(--cor-destaque);
+            display: inline-block;
+            width: 250px;
+            margin-bottom: 5px;
+        }
+        
+        .recibo-assinatura p {
             font-size: 0.9em;
-            margin: 5px 0;
             color: var(--cor-principal);
+            margin-top: 5px;
+        }
+
+        /* Estilo do rodapé do recibo */
+        .recibo-footer {
+            background-color: var(--cor-principal);
+            color: var(--cor-secundaria);
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .recibo-footer p {
+            margin: 3px 0;
+            font-size: 0.8em;
+        }
+        
+        .recibo-footer .contato-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .recibo-footer .contato-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .recibo-footer .contato-item i {
+            font-size: 0.9em;
         }
 
         @media print {
             body * {
                 visibility: hidden;
             }
-            #modal-view-recibo .modal-content, #modal-view-recibo * {
+            #modal-view-recibo, #modal-view-recibo * {
                 visibility: visible;
                 display: block;
             }
+            #modal-view-recibo {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
             #modal-view-recibo .modal-content {
-                width: 100%;
+                width: 21cm;
                 margin: 0;
-                padding: 0;
+                padding: 1cm;
                 box-shadow: none;
+                background-color: #fff;
             }
             #btn-download-pdf, .close-btn {
                 display: none;
+            }
+            .recibo-footer {
+                background-color: var(--cor-principal) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            #recibo-content {
+                background-color: #fff !important;
+            }
+            #recibo-content img[src] {
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
             }
         }
         
@@ -344,14 +402,12 @@
             border-top: 5px solid var(--cor-destaque);
         }
 
-        /* Estilo para a mensagem de carregamento */
         #loading-message {
             text-align: center;
             color: #555;
             margin-top: 10px;
             font-style: italic;
         }
-
     </style>
 </head>
 <body>
@@ -438,6 +494,9 @@
                 <label for="config-logo">Upload da Logo:</label>
                 <input type="file" id="config-logo" accept="image/*">
                 <p id="loading-message" style="display:none;">Processando imagem...</p>
+
+                <label for="config-background">Upload do Plano de Fundo:</label>
+                <input type="file" id="config-background" accept="image/*">
                 
                 <button type="submit">Salvar Configurações</button>
             </form>
@@ -526,7 +585,6 @@
         const reciboContent = document.getElementById('recibo-content');
         const loadingMessage = document.getElementById('loading-message');
 
-        // Carrega a biblioteca rembg ao iniciar
         let rembgInstance = null;
         async function loadRembg() {
             loadingMessage.textContent = 'Carregando removedor de fundo...';
@@ -540,7 +598,8 @@
             instagram: '@tonyfume',
             endereco: 'Avenida Juca Sampaio, 1552, Jacintinho',
             whatsapp: '(82)99806-9585',
-            logo: null
+            logo: null,
+            background: null // NOVO CAMPO
         };
 
         let recibos = JSON.parse(localStorage.getItem('recibos')) || [];
@@ -613,6 +672,9 @@
                 reader.onload = async (event) => {
                     const img = new Image();
                     img.onload = async () => {
+                        if (!rembgInstance) {
+                            await loadRembg();
+                        }
                         const output = await rembgInstance.remove(img);
                         empresaConfig.logo = output.toDataURL('image/png');
                         loadingMessage.style.display = 'none';
@@ -624,6 +686,19 @@
             }
         });
 
+        // NOVO EVENT LISTENER PARA O PLANO DE FUNDO
+        document.getElementById('config-background').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    empresaConfig.background = event.target.result;
+                    salvarConfiguracoes();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
         function renderizarRecibos() {
             tabelaRecibosBody.innerHTML = '';
             let valorTotal = 0;
@@ -716,7 +791,6 @@
             e.target.reset();
             fecharModal(modalRecibo);
             
-            // Gerar e baixar o PDF do novo recibo
             if (novoId) {
                 visualizarRecibo(novoId, true);
             }
@@ -729,22 +803,14 @@
             
             html2canvas(element, { scale: 2 }).then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 550;
-                const pageHeight = 842;
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 20;
+                const imgWidth = 595.28;
+                const pageHeight = 841.89;
+                const margin = 20;
+                
+                const imgHeight = (canvas.height * (imgWidth - (2 * margin))) / canvas.width;
+                
+                doc.addImage(imgData, 'PNG', margin, margin, imgWidth - (2 * margin), imgHeight);
 
-                doc.addImage(imgData, 'PNG', 30, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-                
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight + 20;
-                    doc.addPage();
-                    doc.addImage(imgData, 'PNG', 30, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
-                
                 doc.save('recibo.pdf');
                 fecharModal(modalViewRecibo);
             });
@@ -771,8 +837,7 @@
             document.getElementById('recibo-valor').value = recibo.valor;
             document.getElementById('recibo-data').value = recibo.data;
             document.getElementById('btn-salvar-recibo').textContent = 'Salvar Recibo';
-            document.getElementById('btn-salvar-recibo').onclick = null; // Remove o evento de download
-            formRecibo.onsubmit = (e) => {
+            const formReciboSubmitHandler = (e) => {
                 e.preventDefault();
                 const reciboEditado = {
                     id: parseInt(document.getElementById('recibo-id-edicao').value),
@@ -783,7 +848,27 @@
                 };
                 salvarRecibo(reciboEditado);
                 fecharModal(modalRecibo);
+                formRecibo.removeEventListener('submit', formReciboSubmitHandler);
+                formRecibo.addEventListener('submit', formReciboDefaultHandler);
             };
+            const formReciboDefaultHandler = (e) => {
+                e.preventDefault();
+                const recibo = {
+                    id: document.getElementById('recibo-id-edicao').value ? parseInt(document.getElementById('recibo-id-edicao').value) : null,
+                    clienteId: parseInt(document.getElementById('recibo-cliente').value),
+                    servico: document.getElementById('recibo-servico').value,
+                    valor: parseFloat(document.getElementById('recibo-valor').value),
+                    data: document.getElementById('recibo-data').value,
+                };
+                const novoId = salvarRecibo(recibo);
+                e.target.reset();
+                fecharModal(modalRecibo);
+                if (novoId) {
+                    visualizarRecibo(novoId, true);
+                }
+            };
+            formRecibo.removeEventListener('submit', formReciboDefaultHandler);
+            formRecibo.addEventListener('submit', formReciboSubmitHandler);
             abrirModal(modalRecibo);
         }
         
@@ -818,33 +903,59 @@
             const cliente = clientes.find(c => c.id === recibo.clienteId);
             
             const conteudo = `
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+                    ${empresaConfig.background ? `<img src="${empresaConfig.background}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"/>` : ''}
+                </div>
                 <div class="recibo-header">
                     ${empresaConfig.logo ? `<img src="${empresaConfig.logo}" alt="Logo da Empresa">` : ''}
-                    <h3>Recibo de Pagamento</h3>
+                    <h3>RECIBO DE SERVIÇO</h3>
                 </div>
-                <div class="recibo-data">
-                    <p><strong>Recibo Nº:</strong> ${recibo.id}</p>
-                    <p><strong>Data:</strong> ${new Date(recibo.data).toLocaleDateString('pt-BR')}</p>
-                </div>
-                <div class="recibo-item">
-                    <p>Recebi(emos) de <strong>${cliente.nome}</strong> a quantia de <strong>${formatarMoeda(recibo.valor)}</strong>, referente ao(s) serviço(s) de:</p>
-                    <p><em>${recibo.servico}</em></p>
-                </div>
-                <div class="recibo-assinatura">
-                    <p>___________________________________</p>
-                    <span>${empresaConfig.instagram}</span>
+                <div class="recibo-body">
+                    <div class="recibo-info-grid">
+                        <div class="recibo-info-box">
+                            <h4>Recebemos de:</h4>
+                            <p>${cliente.nome}</p>
+                        </div>
+                        <div class="recibo-info-box">
+                            <h4>Valor:</h4>
+                            <p>${formatarMoeda(recibo.valor)}</p>
+                        </div>
+                        <div class="recibo-info-box">
+                            <h4>Serviço referente:</h4>
+                            <p>${recibo.servico}</p>
+                        </div>
+                        <div class="recibo-info-box">
+                            <h4>Data:</h4>
+                            <p>${new Date(recibo.data).toLocaleDateString('pt-BR')}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="recibo-assinatura">
+                        <div class="linha-assinatura"></div>
+                        <p>Assinatura do Responsável</p>
+                        <p>${empresaConfig.instagram}</p>
+                    </div>
                 </div>
                 <div class="recibo-footer">
+                    <div class="contato-container">
+                        <div class="contato-item">
+                            <i class="fas fa-whatsapp"></i>
+                            <p>${empresaConfig.whatsapp}</p>
+                        </div>
+                        <div class="contato-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>contato@tonyfume.com.br</p>
+                        </div>
+                    </div>
                     <p><strong>CNPJ:</strong> ${empresaConfig.cnpj}</p>
-                    <p><strong>Endereço:</strong> ${empresaConfig.endereco}</p>
-                    <p><strong>Whatsapp:</strong> ${empresaConfig.whatsapp}</p>
+                    <p>${empresaConfig.endereco}</p>
                 </div>
             `;
             reciboContent.innerHTML = conteudo;
             abrirModal(modalViewRecibo);
 
             if (baixarAutomaticamente) {
-                setTimeout(baixarReciboPdf, 500); // Pequeno atraso para garantir que o modal está renderizado
+                setTimeout(baixarReciboPdf, 500);
             }
         }
 
