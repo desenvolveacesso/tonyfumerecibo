@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -499,7 +498,7 @@
                 <label for="config-background">Upload do Plano de Fundo:</label>
                 <input type="file" id="config-background" accept="image/*">
                 
-                <button type="submit">Salvar Configurações</button>
+                <button type="button" id="btn-salvar-config">Salvar Configurações</button>
             </form>
         </div>
     </div>
@@ -600,7 +599,7 @@
             endereco: 'Avenida Juca Sampaio, 1552, Jacintinho',
             whatsapp: '(82)99806-9585',
             logo: null,
-            background: null // NOVO CAMPO
+            background: null
         };
 
         let recibos = JSON.parse(localStorage.getItem('recibos')) || [];
@@ -658,8 +657,8 @@
             fecharModal(modalConfig);
         }
 
-        formConfig.addEventListener('submit', (e) => {
-            e.preventDefault();
+        // Event listener para o botão de salvar, substituindo o submit do form
+        document.getElementById('btn-salvar-config').addEventListener('click', () => {
             salvarConfiguracoes();
         });
 
@@ -679,7 +678,8 @@
                         const output = await rembgInstance.remove(img);
                         empresaConfig.logo = output.toDataURL('image/png');
                         loadingMessage.style.display = 'none';
-                        salvarConfiguracoes();
+                        carregarConfiguracoes(); // Atualiza a visualização da logo
+                        // O modal será fechado ao clicar no botão "Salvar Configurações"
                     };
                     img.src = event.target.result;
                 };
@@ -687,14 +687,13 @@
             }
         });
 
-        // NOVO EVENT LISTENER PARA O PLANO DE FUNDO
         document.getElementById('config-background').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     empresaConfig.background = event.target.result;
-                    salvarConfiguracoes();
+                    carregarConfiguracoes(); // A logo é atualizada aqui, mas o modal só fecha no botão
                 };
                 reader.readAsDataURL(file);
             }
