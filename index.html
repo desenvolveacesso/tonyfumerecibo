@@ -657,11 +657,12 @@
             fecharModal(modalConfig);
         }
 
-        // Adicionamos um event listener para o formulário de configurações.
-        // Ele vai salvar e fechar o modal apenas se o usuário clicar no botão "Salvar Configurações"
-        // e não tiver feito upload de nenhuma imagem.
+        // A função de upload da logo e o plano de fundo agora chamam a função de salvar,
+        // garantindo que os dados estejam prontos antes de fechar o modal.
+        // Adicionamos um event listener para o formulário de configurações, caso o usuário
+        // queira apenas salvar os campos de texto.
         formConfig.addEventListener('submit', (e) => {
-            e.preventDefault(); // Impede o envio padrão do formulário
+            e.preventDefault();
             salvarConfiguracoes();
         });
 
@@ -681,7 +682,7 @@
                         const output = await rembgInstance.remove(img);
                         empresaConfig.logo = output.toDataURL('image/png');
                         loadingMessage.style.display = 'none';
-                        salvarConfiguracoes(); // Salva e fecha o modal automaticamente após o upload
+                        salvarConfiguracoes();
                     };
                     img.src = event.target.result;
                 };
@@ -695,7 +696,7 @@
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     empresaConfig.background = event.target.result;
-                    salvarConfiguracoes(); // Salva e fecha o modal automaticamente após o upload
+                    salvarConfiguracoes();
                 };
                 reader.readAsDataURL(file);
             }
