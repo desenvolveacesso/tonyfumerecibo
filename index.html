@@ -498,7 +498,7 @@
                 <label for="config-background">Upload do Plano de Fundo:</label>
                 <input type="file" id="config-background" accept="image/*">
                 
-                <button type="submit" id="btn-salvar-config">Salvar Configurações</button>
+                <button type="submit">Salvar Configurações</button>
             </form>
         </div>
     </div>
@@ -657,11 +657,11 @@
             fecharModal(modalConfig);
         }
 
-        // Event listener para o formulário de configurações
+        // Adicionamos um event listener para o formulário de configurações.
+        // Ele vai salvar e fechar o modal apenas se o usuário clicar no botão "Salvar Configurações"
+        // e não tiver feito upload de nenhuma imagem.
         formConfig.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // A chamada para salvar e fechar o modal só acontece no upload das imagens ou
-            // ao clicar no botão, se o usuário não fizer upload de nada.
+            e.preventDefault(); // Impede o envio padrão do formulário
             salvarConfiguracoes();
         });
 
@@ -681,7 +681,7 @@
                         const output = await rembgInstance.remove(img);
                         empresaConfig.logo = output.toDataURL('image/png');
                         loadingMessage.style.display = 'none';
-                        salvarConfiguracoes(); // Salva e fecha o modal aqui
+                        salvarConfiguracoes(); // Salva e fecha o modal automaticamente após o upload
                     };
                     img.src = event.target.result;
                 };
@@ -695,7 +695,7 @@
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     empresaConfig.background = event.target.result;
-                    salvarConfiguracoes(); // Salva e fecha o modal aqui
+                    salvarConfiguracoes(); // Salva e fecha o modal automaticamente após o upload
                 };
                 reader.readAsDataURL(file);
             }
